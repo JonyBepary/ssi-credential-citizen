@@ -25,8 +25,6 @@ ngrok http 8020
 
 # In a separate terminal, navigate to the cloned acapy directory
 cd acapy/demo
-
-# Start the ACAPY agent (this must be running before our API server)
 LEDGER_URL=http://dev.greenlight.bcovrin.vonx.io ./run_demo faber
 ```
 
@@ -80,97 +78,21 @@ npm run dev
 
 *All four terminals should be running simultaneously as shown in the screenshot above.*
 
+## Image Gallery
 
-## Testing the Enhanced Attributes
+### Step 5: Testing Screenshots
+![Step 2](img/2.png)
 
-### Test 1: Schema Registration
-**Verify**: Check console output shows new schema with attributes: `["username", "email", "occupation", "citizenship"]`
+![Step 3](img/3.png)
 
-### Test 2: Credential Issuance Form
-1. Open http://localhost:3000
-2. Navigate through issuer stepper to credential issuance step
-3. **Verify**: Form shows fields for:
-   - Username
-   - Email
-   - Occupation
-   - Citizenship
+![Step 4](img/4.png)
 
-### Test 3: API Integration
-**Test API directly:**
-```bash
-curl -X POST http://localhost:4000/v2/issue-credential \
-  -H "Content-Type: application/json" \
-  -d '{
-    "connectionId": "test-connection",
-    "username": "alice_smith",
-    "email": "alice@example.com",
-    "occupation": "Data Scientist",
-    "citizenship": "Canada"
-  }'
-```
+![Step 5](img/5.png)
 
-**Expected**: API accepts new parameters without errors
+![Step 6](img/6.png)
 
-### Test 4: Proof Request
-**Test proof request API:**
-```bash
-curl -X POST http://localhost:4000/v2/send-proof-request \
-  -H "Content-Type: application/json" \
-  -d '{
-    "proofRequestlabel": "Identity Verification",
-    "connectionId": "test-connection",
-    "version": "1.0"
-  }'
-```
+![Step 7](img/7.png)
 
-**Expected**: Proof request asks for `occupation` and `citizenship` attributes
+![Step 8](img/8.png)
 
-## End-to-End Testing with Bifold Wallet
-
-### Complete Workflow Test:
-1. **Connection**: Generate QR code, scan with Bifold
-2. **Credential Issuance**:
-   - Fill form with: username="john_doe", email="john@test.com", occupation="Developer", citizenship="USA"
-   - Submit form
-   - Accept credential in Bifold wallet
-3. **Proof Verification**:
-   - Request proof from verifier
-   - Share proof from Bifold wallet
-   - Verify occupation="Developer" and citizenship="USA" are displayed
-
-## Troubleshooting
-
-### Common Issues:
-
-1. **"ECONNREFUSED 127.0.0.1:8021"**
-   - **Solution**: Start ACAPY agent first before API server
-
-2. **"Schema registration failed"**
-   - **Solution**: Check ACAPY agent is connected to ledger
-   - Verify ngrok is running and accessible
-
-3. **"Credential issuance failed"**
-   - **Solution**: Ensure schema and credential definition were registered successfully
-   - Check connection exists between issuer and holder
-
-4. **"Proof verification shows old attributes"**
-   - **Solution**: Clear browser cache and restart servers
-   - Ensure using updated proof controller
-
-## Success Criteria
-
-✅ **Schema**: New schema registered with 4 attributes
-✅ **API**: Accepts username, email, occupation, citizenship parameters
-✅ **UI**: Form displays new input fields
-✅ **Credential**: Bifold wallet shows new attributes
-✅ **Proof**: Verification displays occupation and citizenship
-✅ **Workflow**: Complete issuer → holder → verifier flow works
-
-## Rollback Plan
-
-If issues occur, revert these files to restore original functionality:
-- `demo/acapy/utils/schema-credDef.ts`
-- `demo/acapy/controllers/v2/credential.controller.ts`
-- `demo/acapy/controllers/v2/proof.controller.ts`
-- `interface/src/components/AcceptCredential.jsx`
-- `interface/src/components/ShareProof.jsx`
+![Step 9](img/9.png)
