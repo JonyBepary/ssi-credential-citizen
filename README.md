@@ -11,32 +11,20 @@ This project showcases a self-sovereign identity flow using ACA-Py agents and a 
 ## Testing Workflow
 
 
+
+### Step 0: Clone the Repository
+```bash
+git clone https://github.com/JonyBepary/ssi-credential-citizen.git
+cd ssi-credential-citizen
 ```
-# Terminal 1: Start ACAPY agent
-cd acapy/demo
-LEDGER_URL=http://dev.greenlight.bcovrin.vonx.io ./run_demo faber
-
-# Terminal 2: Start issuer API
-cd ssi-tutorial/demo/acapy
-npm run issuer
-
-# Terminal 3: Start verifier API (optional, for separate verifier)
-cd ssi-tutorial/demo/acapy
-npm run verifier
-
-# Terminal 4: Start web interface
-cd ssi-tutorial/interface
-npm run dev
-```
-
 ### Step 1: Start ACAPY Agent (Required First!)
 
 ```bash
+# In a separate terminal, Start ngrok for port 8020
+ngrok http 8020
+
 # In a separate terminal, navigate to the cloned acapy directory
 cd acapy/demo
-
-# Start ngrok for port 8020
-ngrok http 8020
 
 # Start the ACAPY agent (this must be running before our API server)
 LEDGER_URL=http://dev.greenlight.bcovrin.vonx.io ./run_demo faber
@@ -50,11 +38,10 @@ LEDGER_URL=http://dev.greenlight.bcovrin.vonx.io ./run_demo faber
 ### Step 2: Start API Server
 
 ```bash
-# In the ssi-tutorial directory
-cd demo/acapy
-
-# Start issuer server
+# Terminal 2: Start issuer API
+cd ssi-tutorial/demo/acapy
 npm run issuer
+
 ```
 
 **Expected Output:**
@@ -68,19 +55,31 @@ npm run issuer
 
 ```bash
 # In another terminal
-cd demo/acapy
+# Terminal 3: Start verifier API
+cd ssi-tutorial/demo/acapy
 npm run verifier
 ```
 
 ### Step 4: Start Web Interface
 
 ```bash
-cd interface
+
+# Terminal 4: Start web interface
+cd ssi-tutorial/interface
 npm run dev
+
 ```
 
 **Expected Output:**
 - ✅ Interface running on http://localhost:3000
+
+
+
+**Expected Output Screenshot:**
+![Running Terminals](img/1.running_terminal.png)
+
+*All four terminals should be running simultaneously as shown in the screenshot above.*
+
 
 ## Testing the Enhanced Attributes
 
